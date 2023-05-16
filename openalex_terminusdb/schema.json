@@ -20,12 +20,16 @@
   {
     "@id":"AuthorSummaryStats",
     "@type": "Class",
-    "2yr_mean_citedness": {
-      "@type": "Optional",
-      "@class": "xsd:float"
-    },
+    "2yr_cited_by_count": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
+    "2yr_h_index": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
+    "2yr_i10_index": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
+    "2yr_mean_citedness": {"@type":  "Optional", "@class": "xsd:float"},
+    "2yr_works_count": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
+    "cited_by_count": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
     "h_index": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
-    "i10_index": {"@type": "Optional", "@class": "xsd:unsignedShort"}
+    "i10_index": {"@type": "Optional", "@class": "xsd:unsignedShort"},
+    "oa_percent": {"@type": "Optional", "@class": "xsd:float"},
+    "works_count": {"@type": "Optional", "@class": "xsd:unsignedShort"}
   },
   {
     "@id":  "AuthorLastKnownInstitution",
@@ -73,7 +77,8 @@
     "@type": "Class",
     "year": "xsd:gYear",
     "works_count": "xsd:nonNegativeInteger",
-    "cited_by_count": "xsd:nonNegativeInteger"
+    "cited_by_count": "xsd:nonNegativeInteger",
+    "oa_works_count": "xsd:nonNegativeInteger"
   },
   {
     "@type": "Class",
