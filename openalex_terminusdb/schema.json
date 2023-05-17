@@ -35,8 +35,7 @@
     "@id":  "AuthorLastKnownInstitution",
     "@type": "Class",
     "@key": {
-      "@type": "Lexical",
-      "@fields": ["id"]
+      "@type": "Random"
     },
     "id": "xsd:anyURI",
     "ror": {"@type": "Optional", "@class": "xsd:anyURI"},
