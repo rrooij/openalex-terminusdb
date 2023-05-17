@@ -24,7 +24,7 @@
     "2yr_i10_index": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
     "2yr_mean_citedness": {"@type":  "Optional", "@class": "xsd:float"},
     "2yr_works_count": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
-    "cited_by_count": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
+    "cited_by_count": {"@type":  "Optional", "@class": "xsd:nonNegativeInteger"},
     "h_index": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
     "i10_index": {"@type": "Optional", "@class": "xsd:unsignedShort"},
     "oa_percent": {"@type": "Optional", "@class": "xsd:float"},
