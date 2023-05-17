@@ -8,8 +8,7 @@
     "@id": "XConcept",
     "@type": "Class",
     "@key": {
-      "@type": "Lexical",
-      "@fields": ["id"]
+      "@type": "Random"
     },
     "id": "xsd:anyURI",
     "wikidata": {"@type": "Optional", "@class": "xsd:anyURI"},
