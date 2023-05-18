@@ -23,10 +23,14 @@ def split_json(filename, threads):
     subprocess.run(f"split -n l/{threads} -d -a 2 {filename} openalex_split", shell=True)
 
 def ingest_json(filename, number, schema):
-    db = f'admin/openalex_{number}'
+    db_name = f"openalex_{number}_"
+    db = f'admin/{db_name}'
     subprocess.run(f'{TERMINUSDB_COMMAND} db create {db}', shell=True)
     subprocess.run(f"{TERMINUSDB_COMMAND} doc insert {db} -g schema --full-replace < {schema}", shell=True)
     subprocess.run(f'{TERMINUSDB_COMMAND} doc insert {db} < {filename}', shell=True)
+    subprocess.run(f'{TERMINUSDB_COMMAND} triples dump {db}/local/branch/main/instance > {db_name}.triples', shell=True)
+    subprocess.run(f'{TERMINUSDB_COMMAND} triples load admin/openalex/local/branch/main/instance {db_name}.triples', shell=True)
+    os.remove(f'{db_name}.triples')
 
 def main():
     parser = argparse.ArgumentParser()
