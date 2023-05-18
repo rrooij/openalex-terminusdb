@@ -8,8 +8,10 @@ TERMINUSDB_COMMAND = './terminusdb'
 
 def init_db(schema, threads):
     for x in range(0, threads):
+        if x < 10:
+            number = "0" + number
         try:
-            subprocess.run(f"{TERMINUSDB_COMMAND} db delete admin/openalex_{x}", shell=True)
+            subprocess.run(f"{TERMINUSDB_COMMAND} db delete admin/openalex_{number}", shell=True)
         except:
             pass
     subprocess.run(f"{TERMINUSDB_COMMAND} db delete admin/openalex", shell=True)
