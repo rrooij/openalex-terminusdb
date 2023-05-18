@@ -8,6 +8,7 @@ TERMINUSDB_COMMAND = './terminusdb'
 
 def init_db(schema, threads):
     for x in range(0, threads):
+        number = str(number)
         if x < 10:
             number = "0" + number
         try:
