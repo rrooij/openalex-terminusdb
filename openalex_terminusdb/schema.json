@@ -59,7 +59,7 @@
     },
     "scopus": {
       "@type": "Optional",
-      "@class": "xsd:anyURI"
+      "@class": "xsd:string"
     },
     "twitter": {
       "@type": "Optional",
