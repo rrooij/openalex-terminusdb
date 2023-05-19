@@ -13,6 +13,7 @@ def init_db(schema, threads):
             number = "0" + number
         try:
             subprocess.run(f"{TERMINUSDB_COMMAND} db delete admin/openalex_{number}", shell=True)
+            subprocess.run(f'{TERMINUSDB_COMMAND} db create admin/openalex_{number}', shell=True)
         except:
             pass
     subprocess.run(f"{TERMINUSDB_COMMAND} db delete admin/openalex", shell=True)
@@ -25,7 +26,6 @@ def split_json(filename, threads):
 def ingest_json(filename, number, schema):
     db_name = f"openalex_{number}"
     db = f'admin/{db_name}'
-    subprocess.run(f'{TERMINUSDB_COMMAND} db create {db}', shell=True)
     subprocess.run(f"{TERMINUSDB_COMMAND} doc insert {db} -g schema --full-replace < {schema}", shell=True)
     subprocess.run(f'{TERMINUSDB_COMMAND} doc insert {db} < {filename}', shell=True)
     subprocess.run(f'{TERMINUSDB_COMMAND} triples dump {db}/local/branch/main/instance > {db_name}.triples', shell=True)
