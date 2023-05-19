@@ -23,7 +23,7 @@ def split_json(filename, threads):
     subprocess.run(f"split -n l/{threads} -d -a 2 {filename} openalex_split", shell=True)
 
 def ingest_json(filename, number, schema):
-    db_name = f"openalex_{number}_"
+    db_name = f"openalex_{number}"
     db = f'admin/{db_name}'
     subprocess.run(f'{TERMINUSDB_COMMAND} db create {db}', shell=True)
     subprocess.run(f"{TERMINUSDB_COMMAND} doc insert {db} -g schema --full-replace < {schema}", shell=True)
