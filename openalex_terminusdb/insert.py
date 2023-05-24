@@ -39,6 +39,7 @@ def split_json(threads):
     subprocess.run(f"split -n l/{threads} -d -a 2 converted.json openalex_split", shell=True)
 
 def apply_triples(threads):
+    print("APPLYING TRIPPLES")
     for x in range(0, threads):
         number = prefix_number(x)
         db_name = f"openalex_{number}"
@@ -68,8 +69,8 @@ def main():
         number = prefix_number(x)
         print("RUNNING THREAD " + number)
         t = threading.Thread(target=ingest_json, args=('openalex_split' + number, number, args.schema))
+        threads.append(t)
         t.start()
-    os.remove('converted.json')
     for thread in threads:
         thread.join()
     apply_triples(args.threads)
