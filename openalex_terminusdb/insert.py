@@ -7,12 +7,15 @@ import json
 
 TERMINUSDB_COMMAND = './terminusdb'
 
+def prefix_number(number):
+    str_number = str(number)
+    if number < 10:
+        return "0" + str_number
+    return str_number
 
 def init_db(schema, threads):
     for x in range(0, threads):
-        number = str(x)
-        if x < 10:
-            number = "0" + number
+        number = prefix_number(x)
         try:
             subprocess.run(f"{TERMINUSDB_COMMAND} db delete admin/openalex_{number}", shell=True)
             subprocess.run(f'{TERMINUSDB_COMMAND} db create admin/openalex_{number}', shell=True)
@@ -35,6 +38,13 @@ def add_types(filename):
 def split_json(threads):
     subprocess.run(f"split -n l/{threads} -d -a 2 converted.json openalex_split", shell=True)
 
+def apply_triples(threads):
+    for x in range(0, threads):
+        number = prefix_number(x)
+        db_name = f"openalex_{number}"
+        db = f'admin/{db_name}'
+        subprocess.run(f'{TERMINUSDB_COMMAND} triples load admin/openalex/local/branch/main/instance {db_name}.triples', shell=True)
+        os.remove(f'{db_name}.triples')
 
 def ingest_json(filename, number, schema):
     db_name = f"openalex_{number}"
@@ -42,8 +52,6 @@ def ingest_json(filename, number, schema):
     subprocess.run(f"{TERMINUSDB_COMMAND} doc insert {db} -g schema --full-replace < {schema}", shell=True)
     subprocess.run(f'{TERMINUSDB_COMMAND} doc insert {db} < {filename}', shell=True)
     subprocess.run(f'{TERMINUSDB_COMMAND} triples dump {db}/local/branch/main/instance > {db_name}.triples', shell=True)
-    subprocess.run(f'{TERMINUSDB_COMMAND} triples load admin/openalex/local/branch/main/instance {db_name}.triples', shell=True)
-    os.remove(f'{db_name}.triples')
 
 
 def main():
@@ -52,16 +60,19 @@ def main():
     parser.add_argument("schema", type=os.path.abspath)
     parser.add_argument("threads", type=int)
     args = parser.parse_args()
-    add_types(args.file)
+#    add_types(args.file)
     init_db(args.schema, args.threads)
     split_json(args.threads)
+    threads = []
     for x in range(0, args.threads):
-        number = str(x)
-        if x < 10:
-            number = "0" + number
+        number = prefix_number(x)
         print("RUNNING THREAD " + number)
         t = threading.Thread(target=ingest_json, args=('openalex_split' + number, number, args.schema))
         t.start()
+    os.remove('converted.json')
+    for thread in threads:
+        thread.join()
+    apply_triples(args.threads)
     # TODO: We have to squash all the different data products into one
 
 
