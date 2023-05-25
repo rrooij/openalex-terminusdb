@@ -35,8 +35,8 @@ def add_types(filename):
                 json.dump(parsed, f2)
                 f2.write("\n")
 
-def split_json(threads):
-    subprocess.run(f"split -n l/{threads} -d -a 2 converted.json openalex_split", shell=True)
+def split_json(threads, filename):
+    subprocess.run(f"split -n l/{threads} -d -a 2 {filename} openalex_split", shell=True)
 
 def apply_triples(threads):
     print("APPLYING TRIPPLES")
@@ -63,7 +63,7 @@ def main():
     args = parser.parse_args()
 #    add_types(args.file)
     init_db(args.schema, args.threads)
-    split_json(args.threads)
+    split_json(args.threads, args.file)
     threads = []
     for x in range(0, args.threads):
         number = prefix_number(x)
