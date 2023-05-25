@@ -19,7 +19,7 @@
   {
     "@id":"AuthorSummaryStats",
     "@type": "Class",
-    "2yr_cited_by_count": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
+    "2yr_cited_by_count": {"@type":  "Optional", "@class": "xsd:nonNegativeInteger"},
     "2yr_h_index": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
     "2yr_i10_index": {"@type":  "Optional", "@class": "xsd:unsignedShort"},
     "2yr_mean_citedness": {"@type":  "Optional", "@class": "xsd:float"},
