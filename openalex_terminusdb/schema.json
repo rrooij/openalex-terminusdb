@@ -75,7 +75,7 @@
     "@type": "Class",
     "year": "xsd:gYear",
     "works_count": "xsd:nonNegativeInteger",
-    "cited_by_count": "xsd:nonNegativeInteger",
+    "cited_by_count": {"@type":  "Optional", "@class": "xsd:nonNegativeInteger"},
     "oa_works_count": "xsd:nonNegativeInteger"
   },
   {
